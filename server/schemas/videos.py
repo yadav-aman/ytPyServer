@@ -11,6 +11,7 @@ class Video(BaseModel):
     thumbnails: str
 
 
+# response model to fetch video data
 class Show_Video(Video):
 
     class Config():

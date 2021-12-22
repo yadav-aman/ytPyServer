@@ -14,6 +14,16 @@ router = APIRouter(prefix='/data', tags=["Data"])
 
 @router.get('/', response_model=Page[videoSchema.Show_Video])
 async def get_data(db: Session = Depends(get_db), sort: Optional[str] = '-time'):
+    """
+    Video data in paginated response :
+    - **sort**: Type of sorting, default **-time**
+        - **-time** : Reverse chronological order
+        - **+time** : Chronological order
+        - **-title** : Descending title name
+        - **+title** : Ascending title name
+    - **page** : Page no to retrieve data from, default **1**
+    - **size** : No of results per page, default **50**
+    """
     data = None
     # Default sorting is Reverse chronological order
     if sort == '-time':
