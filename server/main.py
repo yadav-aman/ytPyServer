@@ -19,7 +19,7 @@ app.include_router(data.router)
 
 
 @app.on_event("startup")
-@repeat_every(seconds=60*60)
+@repeat_every(seconds=60)
 def ytJob():
     with sessionmaker.context_session() as db:
         fetch_yt.req_yt_api(db)
