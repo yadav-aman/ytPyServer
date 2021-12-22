@@ -35,7 +35,7 @@ def make_request(api_key):
 def add_to_db(response, db: Session):
     data = response.json().get('items')
     print(
-        f"Found: {response.json().get('pageInfo').get('resultsPerPage')} videos")
+        f"Found: {response.json().get('pageInfo').get('resultsPerPage')} video(s)")
     for x in data:
         video_id = x.get("id").get("videoId")
         snippet = x.get('snippet')
@@ -70,7 +70,7 @@ def req_yt_api(db: Session):
 
     elif response.status_code == 403:
         print(
-            f"{api_key[:4]}...{api_key[-4:]} Quota Exceeded, Trying Different Key")
+            f"API Key - {api_key[:4]}...{api_key[-4:]} : Quota Exceeded, Trying Different Key")
         keys[api_key] = False
         api_key = get_valid_api_key()
         response = make_request(api_key)
