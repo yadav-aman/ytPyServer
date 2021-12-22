@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm.session import sessionmaker
 import uvicorn
 from fastapi_utils.session import FastAPISessionMaker
@@ -16,6 +17,16 @@ Base.metadata.create_all(engine)
 sessionmaker = FastAPISessionMaker(SQLALCHEMY_DB_URL)
 
 app.include_router(data.router)
+
+origins = ['http://localhost:3000', 'localhost:3000']
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*']
+)
 
 
 @app.on_event("startup")
